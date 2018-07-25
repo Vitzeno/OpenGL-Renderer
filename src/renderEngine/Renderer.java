@@ -17,8 +17,8 @@ public class Renderer {
 	public void render(RawModel model) {
 		GL30.glBindVertexArray(model.getVaoID()); //VAO's but by activated via binding before use
 		GL20.glEnableVertexAttribArray(0); //Activate arribList, we placed data in list 0
-		//(type of data to render, where to start, where to end)
-		GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, model.getVertexCount());
+		//(type of data to render, number of indices, type of data, where to start)
+		GL11.glDrawElements(GL11.GL_TRIANGLES, model.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
 		GL20.glDisableVertexAttribArray(0); //Deactivate attribList
 		GL30.glBindVertexArray(0); //Unbind VAO
 	}

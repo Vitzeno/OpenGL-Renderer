@@ -3,9 +3,13 @@ package shaders;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.FloatBuffer;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 
 /**
  * Since the concrete impelmentaion will be used for all shaders 
@@ -17,6 +21,9 @@ public abstract class ShaderProgram {
 	private int programID;
 	private int vertexShaderID;
 	private int fragmentShaderID;
+	
+	//Used for loadMatrix() //size 16 since we have a 4x4 Matrix
+	private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
 
 	public ShaderProgram(String vertexFile, String fragmentFile) {
 		vertexShaderID = loadShader(vertexFile, GL20.GL_VERTEX_SHADER);
@@ -27,6 +34,17 @@ public abstract class ShaderProgram {
         bindAttributes();
         GL20.glLinkProgram(programID);
         GL20.glValidateProgram(programID);
+        getAllUniformLocation();
+	}
+	
+	protected abstract void getAllUniformLocation();
+	
+	/**
+	 * Gets the location of uniform variables in shader code
+	 * @return
+	 */
+	protected int getUniformLocation(String uniformName) {
+		return GL20.glGetUniformLocation(programID, uniformName);
 	}
 	
 	/**
@@ -57,6 +75,50 @@ public abstract class ShaderProgram {
 	protected void bindAttribute(int attribute, String variableName){
         GL20.glBindAttribLocation(programID, attribute, variableName);
     }
+	
+	/**
+	 * Loads a float into shader code
+	 * @param loaction to loaded to
+	 * @param value to load into shader
+	 */
+	protected void loadFloat(int location, float value) {
+		GL20.glUniform1f(location, value);
+	}
+	
+	/**
+	 * Loads a vector into shader code
+	 * @param loaction to loaded to
+	 * @param value to load into shader
+	 */
+	protected void loadVector(int location, Vector3f vector) {
+		GL20.glUniform3f(location, vector.x, vector.y, vector.z);
+	}
+	
+	/**
+	 * Loads a boolean(0/1) into shader code
+	 * since Booleans don't exist in shader code
+	 * @param loaction to loaded to
+	 * @param value to load into shader
+	 */
+	protected void loadBoolean(int location, boolean value) {
+		float toLoad = 0;
+		
+		if(value)
+			toLoad = 1;
+		
+		GL20.glUniform1f(location, toLoad);	
+	}
+	
+	/**
+	 * Loads a matrix into shader code
+	 * @param loaction to loaded to
+	 * @param value to load into shader
+	 */
+	protected void loadMatrix(int location, Matrix4f matrix) {
+		matrix.store(matrixBuffer);
+		matrixBuffer.flip();
+		GL20.glUniformMatrix4(location, false, matrixBuffer);
+	}
 	
 	/**
 	 * Loads shader file and compiles 

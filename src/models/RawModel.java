@@ -1,4 +1,4 @@
-package renderEngine;
+package models;
 
 public class RawModel {
 	
@@ -14,7 +14,6 @@ public class RawModel {
 	public RawModel (int vaoID, int vertexCount) {
 		this.vaoID = vaoID;
 		this.vertexCount = vertexCount;
-		
 	}
 
 	public int getVaoID() {

@@ -12,8 +12,27 @@ import org.lwjgl.util.vector.Vector3f;
 
 import models.RawModel;
 
+/**
+ * Reads in OBJ data and passes on to a RawModel using Loader
+ * @author Mohamed
+ *
+ */
 public class OBJLoader {
 
+	/**
+	 * Parses OBJ file and returns a raw model
+	 * OBJ file has:
+	 * -v = vertex positions
+	 * -vt = texture coords
+	 * -un = normal vectors
+	 * -f = faces
+	 * 
+	 *  Unfortunately vertices and other attributes do not match up, instead we use the faces data to line them up
+	 *  before the are ready for use. 
+	 * @param fileName OBJ file to be parsed
+	 * @param loader instance of a loader, used to load VAO
+	 * @return returns a raw model loaded into a VAO
+	 */
 	public static RawModel loadOBJModel(String fileName, Loader loader) {
 		
 		FileReader fileReader = null;

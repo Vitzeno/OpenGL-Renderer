@@ -1,5 +1,10 @@
 package models;
 
+/**
+ * This class store raw data on the model including VAO ID and vertex count
+ * @author Mohamed
+ *
+ */
 public class RawModel {
 	
 	private int vaoID;

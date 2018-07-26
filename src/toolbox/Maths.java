@@ -5,6 +5,11 @@ import org.lwjgl.util.vector.Vector3f;
 
 import entities.Camera;
 
+/**
+ * This class is intended as a helper class with functions that aid in the more tedious mathematics.
+ * @author Mohamed
+ *
+ */
 public class Maths {
 	
 	/**
@@ -15,7 +20,7 @@ public class Maths {
 	 * @param ry rotation y 
 	 * @param rz rotation x
 	 * @param scale
-	 * @return
+	 * @return final matrix which is a culmination
 	 */
 	public static Matrix4f createTransformationMatrix(Vector3f translation, float rx, float ry, float rz, float scale) {
 		Matrix4f matrix = new Matrix4f();
@@ -28,6 +33,12 @@ public class Maths {
 		return matrix;
 	}
 	
+	/**
+	 * This creates a matrix used for translating the world in the exact opposite direction 
+	 * of indicated camera movement.
+	 * @param camera
+	 * @return
+	 */
 	public static Matrix4f createViewMatrix(Camera camera) {
         Matrix4f viewMatrix = new Matrix4f();
         viewMatrix.setIdentity();

@@ -3,6 +3,11 @@ package entities;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
+/**
+ * This class handles the camera view data
+ * @author Mohamed
+ *
+ */
 public class Camera {
 	private Vector3f position = new Vector3f(0,0,0);
     private float pitch;
@@ -11,6 +16,11 @@ public class Camera {
      
     public Camera(){}
      
+    /**
+     * Handles player input to move the camera.
+     * In reality the world is translated in the exact opposite
+     * direction to simulate camera movement.
+     */
     public void move(){
         if(Keyboard.isKeyDown(Keyboard.KEY_W)){
             position.z -= 0.1f;

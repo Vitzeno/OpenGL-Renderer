@@ -7,6 +7,12 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.PixelFormat;
 
+/**
+ * This class sets up the display.
+ * This includes setting resolution and framerate cap.
+ * @author Mohamed
+ *
+ */
 public class DisplayManager {
 	
 	public static final int WIDTH = 1280;

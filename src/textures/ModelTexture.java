@@ -1,5 +1,10 @@
 package textures;
 
+/**
+ * This class stores data about the texture to be applied to models
+ * @author Mohamed
+ *
+ */
 public class ModelTexture {
 	
 	private int textureID;

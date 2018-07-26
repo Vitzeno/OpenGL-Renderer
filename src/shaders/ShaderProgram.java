@@ -12,7 +12,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
- * Since the concrete impelmentaion will be used for all shaders 
+ * Abstract class used for handling shaders and loading uniform variables.
  * @author Mohamed
  *
  */

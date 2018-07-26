@@ -9,8 +9,8 @@ public class TexturedModel {
 	
 	/**
 	 * Stored data about textured models
-	 * @param rawModel
-	 * @param texture
+	 * @param rawModel raw model data
+	 * @param texture texture data
 	 */
 	public TexturedModel(RawModel rawModel, ModelTexture texture) {
 		this.rawModel = rawModel;

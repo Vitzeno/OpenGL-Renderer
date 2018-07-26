@@ -79,6 +79,10 @@ public class Loader {
 			GL11.glDeleteTextures(texture);
 	}
 	
+	/**
+	 * Generated VAOs and returns ID
+	 * @return VAO ID
+	 */
 	private int createVAO() {
 		int vaoID = GL30.glGenVertexArrays(); //Creates empty VAO and returns ID
 		vaos.add(vaoID); //Store in ArrayList

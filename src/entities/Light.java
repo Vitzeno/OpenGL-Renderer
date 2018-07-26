@@ -2,6 +2,11 @@ package entities;
 
 import org.lwjgl.util.vector.Vector3f;
 
+/**
+ * This class handles the main light source
+ * @author Mohamed
+ *
+ */
 public class Light {
 
 	private Vector3f position;

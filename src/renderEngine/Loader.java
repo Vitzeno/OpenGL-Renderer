@@ -35,11 +35,12 @@ public class Loader {
 	 * @param positions of vertices of object
 	 * @return returns a RawModel objects of VAO's
 	 */
-	public RawModel loadToVAO(float[] positions, float[] textureCoords, int[] indices) {
+	public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices) {
 		int vaoID = createVAO();
 		bindIndicesBuffer(indices);
-		storeDataInAtrtibuteList(0, 3, positions); //Store in attrib 0 of VAO
-		storeDataInAtrtibuteList(1, 2, textureCoords); //Store in attrib 1 of VAO
+		storeDataInAtrtibuteList(0, 3, positions); //Store in attrib 0 of VAO positions of size 3
+		storeDataInAtrtibuteList(1, 2, textureCoords); //Store in attrib 1 of VAO textureCoords of size 2
+		storeDataInAtrtibuteList(2, 3, normals); //Store in attrib 1 of VAO normals of size 3
 		unbindVAO();	
 		return new RawModel(vaoID, indices.length); //indices represent the index buffer
 	}

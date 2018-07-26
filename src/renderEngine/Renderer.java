@@ -46,6 +46,7 @@ public class Renderer {
 		GL30.glBindVertexArray(rawModel.getVaoID()); //VAO's must be activated via binding before use
 		GL20.glEnableVertexAttribArray(0); //Activate arribList, placed positions in list 0
 		GL20.glEnableVertexAttribArray(1); //Activate arribList, placed textureCoords in list 1
+		GL20.glEnableVertexAttribArray(2); //Activate arribList, placed normals in list 2
 		
 		Matrix4f transformationMatrix = Maths.createTransformationMatrix(entity.getPosition(), entity.getRotX(), entity.getRotY(), entity.getRotZ(), entity.getScale());
 		shader.loadTransformationMatrix(transformationMatrix);
@@ -57,6 +58,7 @@ public class Renderer {
 		GL11.glDrawElements(GL11.GL_TRIANGLES, rawModel.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
 		GL20.glDisableVertexAttribArray(0); //Deactivate attribList
 		GL20.glDisableVertexAttribArray(1); //Deactivate attribList
+		GL20.glDisableVertexAttribArray(2); //Deactivate attribList
 		GL30.glBindVertexArray(0); //Unbind VAO
 	}
 	

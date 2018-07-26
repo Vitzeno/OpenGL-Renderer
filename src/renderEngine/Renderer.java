@@ -24,6 +24,9 @@ public class Renderer {
 	private Matrix4f projectionMatrix;
 	
 	public Renderer(StaticShader shader){
+		GL11.glEnable(GL11.GL_CULL_FACE);	//Enable culling of triangle
+		GL11.glCullFace(GL11.GL_BACK);		//Culls triangle facing away from camera
+		
         createProjectionMatrix();
         shader.start();
         shader.loadProjectionMatrix(projectionMatrix);

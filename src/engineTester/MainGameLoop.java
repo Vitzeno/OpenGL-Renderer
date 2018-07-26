@@ -16,8 +16,6 @@ import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
 import renderEngine.OBJLoader;
-import renderEngine.Renderer;
-import shaders.StaticShader;
 import textures.ModelTexture;
 
 public class MainGameLoop {
@@ -32,8 +30,8 @@ public class MainGameLoop {
 		TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("grass01")));
 		
 		ModelTexture texture = staticModel.getTexture(); 
-		texture.setShineDampner(100);
-		texture.setReflectivity(100);
+		texture.setShineDampner(10);
+		texture.setReflectivity(1);
 		
 		//Entity entity = new Entity(staticModel, new Vector3f(0, 0, -25), 0, 0, 0, 1);
 		
@@ -48,7 +46,7 @@ public class MainGameLoop {
 			entities.add(new Entity(staticModel, new Vector3f(x, y, z), rand.nextFloat() * 180f, rand.nextFloat() * 180f, 0f, 1f));
 		}
 		
-		Light light = new Light(new Vector3f(0, 0, -20), new Vector3f(1, 1, 1));
+		Light light = new Light(new Vector3f(0, 0, -50), new Vector3f(1, 1, 1));
 		
 		Camera camera = new Camera();
 		

@@ -43,7 +43,7 @@ public class Renderer {
 		TexturedModel model = entity.getModel();
 		RawModel rawModel = model.getRawModel();
 		
-		GL30.glBindVertexArray(rawModel.getVaoID()); //VAO's but by activated via binding before use
+		GL30.glBindVertexArray(rawModel.getVaoID()); //VAO's must be activated via binding before use
 		GL20.glEnableVertexAttribArray(0); //Activate arribList, placed positions in list 0
 		GL20.glEnableVertexAttribArray(1); //Activate arribList, placed textureCoords in list 1
 		

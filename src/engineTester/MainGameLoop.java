@@ -16,6 +16,7 @@ import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
 import renderEngine.OBJLoader;
+import terrains.Terrain;
 import textures.ModelTexture;
 
 public class MainGameLoop {
@@ -38,7 +39,7 @@ public class MainGameLoop {
 		List<Entity> entities = new ArrayList<Entity>();
 		Random rand = new Random();
 		
-		for(int i = 0;i < 100;i++) {
+		for(int i = 0;i < 200;i++) {
 			float x = rand.nextFloat() * 100 -5;
 			float y = rand.nextFloat() * 100 -5;
 			float z = rand.nextFloat() * -300;
@@ -47,6 +48,11 @@ public class MainGameLoop {
 		}
 		
 		Light light = new Light(new Vector3f(0, 0, -50), new Vector3f(1, 1, 1));
+		
+		List<Terrain> terrains = new ArrayList<Terrain>();
+		for(int i = 0;i < 5;i++) {
+			terrains.add(new Terrain(i, -1, loader, new ModelTexture(loader.loadTexture("grass01"))));
+		}
 		
 		Camera camera = new Camera();
 		
@@ -59,6 +65,10 @@ public class MainGameLoop {
 			//entity.increasePosition(0, 0, -0.1f);
 			
 			camera.move();
+			
+			for(Terrain terrain : terrains){
+				renderer.processTerrain(terrain);
+			}
 			
 			for(Entity entity : entities) {
 				renderer.processEntity(entity);

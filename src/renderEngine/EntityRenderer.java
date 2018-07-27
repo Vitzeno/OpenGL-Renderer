@@ -18,43 +18,24 @@ import textures.ModelTexture;
 import toolbox.Maths;
 
 /**
- * This class handles rendering of scenes. Also creates projection matrix therefore handles FOV, NEAR_PLANE and FAR_PLANE values.
+ * This class handles rendering of entities only.
  * @author Mohamed
  *
  */
-public class Renderer {
+public class EntityRenderer {
 	
-	private static final float FOV = 70;
-	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 1000;
-	
-	
-	private Matrix4f projectionMatrix;
 	private StaticShader shader;
 	
 	/**
-	 * Constructor used for setting up projection matrix and enabling culling.
+	 * Constructor used for loading up projection matrix and shaders.
 	 * @param shader
 	 */
-	public Renderer(StaticShader shader){
+	public EntityRenderer(StaticShader shader, Matrix4f projectionMatrix){
 		this.shader = shader;
-		GL11.glEnable(GL11.GL_CULL_FACE);	//Enable culling of triangle
-		GL11.glCullFace(GL11.GL_BACK);		//Culls triangle facing away from camera
-		
-        createProjectionMatrix();
         shader.start();
         shader.loadProjectionMatrix(projectionMatrix);
         shader.stop();
     }
-	
-	/**
-	 * Called every frame from update to clear screen
-	 */
-	public void prepare() {
-		GL11.glEnable(GL11.GL_DEPTH_TEST); //Tests to ensure farther objects don't render in front of closer ones
-		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT); //Clear both colour and depth buffer
-		GL11.glClearColor(1, 0, 0, 1);
-	}
 	
 	public void render(Map<TexturedModel, List<Entity>> entities) {
 		for(TexturedModel model : entities.keySet()) {
@@ -100,24 +81,6 @@ public class Renderer {
 	private void prepareInstance(Entity entity) {
 		Matrix4f transformationMatrix = Maths.createTransformationMatrix(entity.getPosition(), entity.getRotX(), entity.getRotY(), entity.getRotZ(), entity.getScale());
 		shader.loadTransformationMatrix(transformationMatrix);
-	}
-	
-	/**
-	 * Creates a matrix used to project 3D scene onto 2D display
-	 */
-	private void createProjectionMatrix(){
-        float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
-        float y_scale = (float) ((1f / Math.tan(Math.toRadians(FOV / 2f))) * aspectRatio);
-        float x_scale = y_scale / aspectRatio;
-        float frustum_length = FAR_PLANE - NEAR_PLANE;
- 
-        projectionMatrix = new Matrix4f();
-        projectionMatrix.m00 = x_scale;
-        projectionMatrix.m11 = y_scale;
-        projectionMatrix.m22 = -((FAR_PLANE + NEAR_PLANE) / frustum_length);
-        projectionMatrix.m23 = -1;
-        projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
-        projectionMatrix.m33 = 0;
 	}
 	
 	

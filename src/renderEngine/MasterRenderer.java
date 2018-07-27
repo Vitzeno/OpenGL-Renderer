@@ -86,7 +86,7 @@ public class MasterRenderer {
 	public void prepare() {
 		GL11.glEnable(GL11.GL_DEPTH_TEST); //Tests to ensure farther objects don't render in front of closer ones
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT); //Clear both colour and depth buffer
-		GL11.glClearColor(1, 0, 0, 1);
+		GL11.glClearColor(0.624f, 0.847f, 0.953f, 1f);
 	}
 	
 	/**

@@ -67,6 +67,7 @@ public class OBJLoader {
 					vertices.add(vertex);
 				}else if(line.startsWith("vt ")) {			//If its a textureCoord
 					Vector2f texture = new Vector2f(Float.parseFloat(currentLine[1]), Float.parseFloat(currentLine[2]));
+					//System.out.println("VT " + currentLine[1] +"  , " + currentLine[2]);
 					textures.add(texture);
 				}else if(line.startsWith("vn ")) {			//If its a normal vector
 					Vector3f normal = new Vector3f(Float.parseFloat(currentLine[1]), Float.parseFloat(currentLine[2]), Float.parseFloat(currentLine[3]));
@@ -88,6 +89,8 @@ public class OBJLoader {
 				String[] vertex1 = currentLine[1].split("/");
 				String[] vertex2 = currentLine[2].split("/");
 				String[] vertex3 = currentLine[3].split("/");
+				
+
 				
 				processVertex(vertex1, indices, textures, normals, texturesArray, normalsArray);
 				processVertex(vertex2, indices, textures, normals, texturesArray, normalsArray);
@@ -120,8 +123,14 @@ public class OBJLoader {
 		
 		int currentVertexPointer = Integer.parseInt(vertexData[0]) - 1;
 		indices.add(currentVertexPointer);
+		Vector2f currentTexture;
 		
-		Vector2f currentTexture = textures.get(Integer.parseInt(vertexData[1]) - 1);
+		//This deals with OBJ models with no vt
+		if(textures.isEmpty())
+			currentTexture = new Vector2f(0, 0);
+		else
+			currentTexture = textures.get(Integer.parseInt(vertexData[1]) - 1);
+		
 		textureArray[currentVertexPointer * 2] = currentTexture.x;
 		textureArray[currentVertexPointer * 2 + 1 ] = 1 - currentTexture.y;
 		

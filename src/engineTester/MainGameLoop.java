@@ -27,8 +27,8 @@ public class MainGameLoop {
 		
 		Loader loader = new Loader();
 
-		RawModel model = OBJLoader.loadOBJModel("Tree", loader);
-		TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("tree")));
+		RawModel model = OBJLoader.loadOBJModel("grass", loader);
+		TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("green")));
 		
 		ModelTexture texture = staticModel.getTexture(); 
 		texture.setShineDampner(10);
@@ -39,11 +39,11 @@ public class MainGameLoop {
 		List<Entity> entities = new ArrayList<Entity>();
 		Random rand = new Random();
 		
-		for(int i = 0;i < 100;i++) {
+		for(int i = 0;i < 50000;i++) {
 			float x = rand.nextFloat() * 100 -5;
 			float z = rand.nextFloat() * -300;
 			
-			entities.add(new Entity(staticModel, new Vector3f(x, 0, z), 0, 0, 0, 5));
+			entities.add(new Entity(staticModel, new Vector3f(x, 0, z), rand.nextFloat(), rand.nextFloat(), 0, 1));
 		}
 		
 		Light light = new Light(new Vector3f(0, 50, -50), new Vector3f(1, 1, 1));

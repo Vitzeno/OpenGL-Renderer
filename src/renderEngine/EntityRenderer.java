@@ -64,6 +64,7 @@ public class EntityRenderer {
 		if(texture.isHasTransparency()) {
 			MasterRenderer.disableCulling();
 		}
+		shader.loadFakeLightingVariable(texture.isUseFakeLighting());
 		shader.loadShineVariable(texture.getShineDampner(), texture.getReflectivity());
 		
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);	//Activate texture to provided texture bank

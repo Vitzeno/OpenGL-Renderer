@@ -30,19 +30,22 @@ public class MainGameLoop {
 		RawModel grassModel = OBJLoader.loadOBJModel("grass", loader);
 		TexturedModel grass = new TexturedModel(grassModel, new ModelTexture(loader.loadTexture("green")));
 		ModelTexture grassTexture = grass.getTexture(); 
+		grassTexture.setUseFakeLighting(true);
 		grassTexture.setShineDampner(10);
 		grassTexture.setReflectivity(1);
 		
 		RawModel treeModel = OBJLoader.loadOBJModel("lowPolyTree", loader);
 		TexturedModel tree = new TexturedModel(treeModel, new ModelTexture(loader.loadTexture("lowPolyTree")));
-		ModelTexture treeTtexture = grass.getTexture(); 
-		treeTtexture.setShineDampner(10);
-		treeTtexture.setReflectivity(1);
+		//ModelTexture treeTexture = tree.getTexture(); 
+		//treeTexture.setUseFakeLighting(true);
+		//treeTexture.setShineDampner(10);
+		//treeTexture.setReflectivity(1);
 		
 		RawModel fernModel = OBJLoader.loadOBJModel("fern", loader);
 		TexturedModel fern = new TexturedModel(fernModel, new ModelTexture(loader.loadTexture("fern")));
-		ModelTexture fernTexture = grass.getTexture(); 
+		ModelTexture fernTexture = fern.getTexture(); 
 		fernTexture.setHasTransparency(true);
+		fernTexture.setUseFakeLighting(true);
 		fernTexture.setShineDampner(10);
 		fernTexture.setReflectivity(1);
 		

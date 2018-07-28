@@ -27,31 +27,57 @@ public class MainGameLoop {
 		
 		Loader loader = new Loader();
 
-		RawModel model = OBJLoader.loadOBJModel("grass", loader);
-		TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.loadTexture("green")));
+		RawModel grassModel = OBJLoader.loadOBJModel("grass", loader);
+		TexturedModel grass = new TexturedModel(grassModel, new ModelTexture(loader.loadTexture("green")));
+		ModelTexture grassTexture = grass.getTexture(); 
+		grassTexture.setShineDampner(10);
+		grassTexture.setReflectivity(1);
 		
-		ModelTexture texture = staticModel.getTexture(); 
-		texture.setShineDampner(10);
-		texture.setReflectivity(1);
+		RawModel treeModel = OBJLoader.loadOBJModel("lowPolyTree", loader);
+		TexturedModel tree = new TexturedModel(treeModel, new ModelTexture(loader.loadTexture("lowPolyTree")));
+		ModelTexture treeTtexture = grass.getTexture(); 
+		treeTtexture.setShineDampner(10);
+		treeTtexture.setReflectivity(1);
 		
-		//Entity entity = new Entity(staticModel, new Vector3f(0, 0, -25), 0, 0, 0, 1);
+		RawModel fernModel = OBJLoader.loadOBJModel("fern", loader);
+		TexturedModel fern = new TexturedModel(fernModel, new ModelTexture(loader.loadTexture("fern")));
+		ModelTexture fernTexture = grass.getTexture(); 
+		fernTexture.setHasTransparency(true);
+		fernTexture.setShineDampner(10);
+		fernTexture.setReflectivity(1);
+		
 		
 		List<Entity> entities = new ArrayList<Entity>();
 		Random rand = new Random();
 		
-		for(int i = 0;i < 50000;i++) {
-			float x = rand.nextFloat() * 100 -5;
-			float z = rand.nextFloat() * -300;
+		for(int i = 0;i < 5000;i++) {
+			//float x = rand.nextFloat() * 800;
+			//float z = rand.nextFloat() * -800;
 			
-			entities.add(new Entity(staticModel, new Vector3f(x, 0, z), rand.nextFloat(), rand.nextFloat(), 0, 1));
+			entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 800, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 5));
+		}
+		
+		for(int i = 0;i < 500;i++) {
+			//float x = rand.nextFloat() * 800;
+			//float z = rand.nextFloat() * -800;
+			
+			entities.add(new Entity(tree, new Vector3f(rand.nextFloat() * 800, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 0.5f));
+		}
+		
+		for(int i = 0;i < 10000;i++) {
+			//float x = rand.nextFloat() * 800;
+			//float z = rand.nextFloat() * -800;
+			
+			entities.add(new Entity(fern, new Vector3f(rand.nextFloat() * 800, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 0.5f));
+		}
+		
+		
+		List<Terrain> terrains = new ArrayList<Terrain>();
+		for(int i = 0;i > -1;i--) {
+			terrains.add(new Terrain(i, -1, loader, new ModelTexture(loader.loadTexture("grass"))));
 		}
 		
 		Light light = new Light(new Vector3f(0, 50, -50), new Vector3f(1, 1, 1));
-		
-		List<Terrain> terrains = new ArrayList<Terrain>();
-		for(int i = 0;i > -5;i--) {
-			terrains.add(new Terrain(i, -1, loader, new ModelTexture(loader.loadTexture("grass01"))));
-		}
 		
 		Camera camera = new Camera();
 		

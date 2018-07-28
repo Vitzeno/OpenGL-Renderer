@@ -48,11 +48,25 @@ public class MasterRenderer {
 	 * Required so that projection matrix can be created and passed to all other renderers
 	 */
 	public MasterRenderer() {
-		GL11.glEnable(GL11.GL_CULL_FACE);	//Enable culling of triangle
-		GL11.glCullFace(GL11.GL_BACK);		//Culls triangle facing away from camera
+		enableCulling();
 		createProjectionMatrix();
 		renderer = new EntityRenderer(shader, projectionMatrix);
 		terrainRenderer = new TerrainRenderer(terrainShader, projectionMatrix);
+	}
+	
+	/**
+	 * Enables backface culling if model texture does not have any transparency
+	 */
+	public static void enableCulling() {
+		GL11.glEnable(GL11.GL_CULL_FACE);	//Enable culling of triangle
+		GL11.glCullFace(GL11.GL_BACK);		//Culls triangle facing away from camera
+	}
+	
+	/**
+	 * Disables backface culling if model texture has transparency
+	 */
+	public static void disableCulling() {
+		GL11.glDisable(GL11.GL_CULL_FACE);	//Disable culling of triangle
 	}
 	
 	/**

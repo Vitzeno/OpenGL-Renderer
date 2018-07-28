@@ -3,7 +3,6 @@ package renderEngine;
 import java.util.List;
 import java.util.Map;
 
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -62,6 +61,9 @@ public class EntityRenderer {
 		GL20.glEnableVertexAttribArray(2); //Activate arribList, placed normals in list 2
 		
 		ModelTexture texture = model.getTexture();
+		if(texture.isHasTransparency()) {
+			MasterRenderer.disableCulling();
+		}
 		shader.loadShineVariable(texture.getShineDampner(), texture.getReflectivity());
 		
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);	//Activate texture to provided texture bank
@@ -72,6 +74,7 @@ public class EntityRenderer {
 	 * Unbinding VAO attribute lists
 	 */
 	private void unbindTexturedModel() {
+		MasterRenderer.enableCulling();
 		GL20.glDisableVertexAttribArray(0); //Deactivate attribList
 		GL20.glDisableVertexAttribArray(1); //Deactivate attribList
 		GL20.glDisableVertexAttribArray(2); //Deactivate attribList

@@ -1,6 +1,7 @@
 package shaders;
 
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 
 import entities.Camera;
 import entities.Light;
@@ -24,6 +25,7 @@ public class StaticShader extends ShaderProgram {
 	private int location_shineDamper;
 	private int location_reflectivity;
 	private int location_useFakeLighting;
+	private int location_skyColour;
 	
 	public StaticShader() {
 		super(VERTEX_FILE, FRAGMENT_FILE);
@@ -52,8 +54,20 @@ public class StaticShader extends ShaderProgram {
 		location_shineDamper = super.getUniformLocation("shineDamper");
 		location_reflectivity = super.getUniformLocation("reflectivity");
 		location_useFakeLighting = super.getUniformLocation("useFakeLighting");
+		location_skyColour = super.getUniformLocation("skyColour");
 	}
 	
+	/**
+	 * Loads sky colour to be used fog calculations in shaders
+	 */
+	public void loadSkyColour(float red, float green, float blue) {
+		super.loadVector(location_skyColour, new Vector3f(red, green, blue));
+	}
+	
+	/**
+	 * Determines if fake lighting should be used in vertex shader
+	 * @param useFake
+	 */
 	public void loadFakeLightingVariable(boolean useFake) {
 		super.loadBoolean(location_useFakeLighting, useFake);
 	}

@@ -12,10 +12,11 @@ import entities.Entity;
 import entities.Light;
 import models.RawModel;
 import models.TexturedModel;
+import objConverter.ModelData;
+import objConverter.OBJFileLoader;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
-import renderEngine.OBJLoader;
 import terrains.Terrain;
 import textures.ModelTexture;
 
@@ -26,22 +27,25 @@ public class MainGameLoop {
 		DisplayManager.createDisplay();
 		
 		Loader loader = new Loader();
-
-		RawModel grassModel = OBJLoader.loadOBJModel("grass", loader);
-		TexturedModel grass = new TexturedModel(grassModel, new ModelTexture(loader.loadTexture("green")));
+	
+		ModelData data = OBJFileLoader.loadOBJ("grassModel");
+		RawModel grassModel = loader.loadToVAO(data.getVertices(), data.getTextureCoords(), data.getNormals(), data.getIndices());
+		TexturedModel grass = new TexturedModel(grassModel, new ModelTexture(loader.loadTexture("flower")));
 		ModelTexture grassTexture = grass.getTexture(); 
 		grassTexture.setUseFakeLighting(true);
 		grassTexture.setShineDampner(10);
 		grassTexture.setReflectivity(1);
 		
-		RawModel treeModel = OBJLoader.loadOBJModel("lowPolyTree", loader);
+		data = OBJFileLoader.loadOBJ("lowPolyTree");
+		RawModel treeModel =loader.loadToVAO(data.getVertices(), data.getTextureCoords(), data.getNormals(), data.getIndices());
 		TexturedModel tree = new TexturedModel(treeModel, new ModelTexture(loader.loadTexture("lowPolyTree")));
 		//ModelTexture treeTexture = tree.getTexture(); 
 		//treeTexture.setUseFakeLighting(true);
 		//treeTexture.setShineDampner(10);
 		//treeTexture.setReflectivity(1);
 		
-		RawModel fernModel = OBJLoader.loadOBJModel("fern", loader);
+		data = OBJFileLoader.loadOBJ("fern");
+		RawModel fernModel = loader.loadToVAO(data.getVertices(), data.getTextureCoords(), data.getNormals(), data.getIndices());
 		TexturedModel fern = new TexturedModel(fernModel, new ModelTexture(loader.loadTexture("fern")));
 		ModelTexture fernTexture = fern.getTexture(); 
 		fernTexture.setHasTransparency(true);
@@ -53,14 +57,14 @@ public class MainGameLoop {
 		List<Entity> entities = new ArrayList<Entity>();
 		Random rand = new Random();
 		
-		for(int i = 0;i < 5000;i++) {
+		for(int i = 0;i < 10000;i++) {
 			//float x = rand.nextFloat() * 800;
 			//float z = rand.nextFloat() * -800;
 			
-			entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 5));
+			entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 1));
 		}
 		
-		for(int i = 0;i < 500;i++) {
+		for(int i = 0;i < 2000;i++) {
 			//float x = rand.nextFloat() * 800;
 			//float z = rand.nextFloat() * -800;
 			

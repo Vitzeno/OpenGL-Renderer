@@ -27,7 +27,7 @@ public class DisplayManager {
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.create(new PixelFormat(), attribs);
-			Display.setTitle("First 3D Game");
+			Display.setTitle("Mayflower");
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}

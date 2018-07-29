@@ -57,30 +57,33 @@ public class MainGameLoop {
 			//float x = rand.nextFloat() * 800;
 			//float z = rand.nextFloat() * -800;
 			
-			entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 800, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 5));
+			entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 5));
 		}
 		
 		for(int i = 0;i < 500;i++) {
 			//float x = rand.nextFloat() * 800;
 			//float z = rand.nextFloat() * -800;
 			
-			entities.add(new Entity(tree, new Vector3f(rand.nextFloat() * 800, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 0.5f));
+			entities.add(new Entity(tree, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 0.5f));
 		}
 		
 		for(int i = 0;i < 10000;i++) {
 			//float x = rand.nextFloat() * 800;
 			//float z = rand.nextFloat() * -800;
 			
-			entities.add(new Entity(fern, new Vector3f(rand.nextFloat() * 800, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 0.5f));
+			entities.add(new Entity(fern, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 0.5f));
 		}
 		
 		
 		List<Terrain> terrains = new ArrayList<Terrain>();
-		for(int i = 0;i > -1;i--) {
-			terrains.add(new Terrain(i, -1, loader, new ModelTexture(loader.loadTexture("grass"))));
-		}
+			
+		//terrains.add(new Terrain(-1, -1, loader, new ModelTexture(loader.loadTexture("grass")))); 	//Top Left
+		terrains.add(new Terrain(0, -1, loader, new ModelTexture(loader.loadTexture("grass"))));	//Top Right
+		//terrains.add(new Terrain(0, 0, loader, new ModelTexture(loader.loadTexture("grass"))));		//Bottom Right
+		//terrains.add(new Terrain(-1, 0, loader, new ModelTexture(loader.loadTexture("grass"))));	//Bottom Left
 		
-		Light light = new Light(new Vector3f(0, 50, -50), new Vector3f(1, 1, 1));
+		
+		Light light = new Light(new Vector3f(0, 1000, 0), new Vector3f(1, 1, 1));
 		
 		Camera camera = new Camera();
 		

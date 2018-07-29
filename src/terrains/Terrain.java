@@ -3,7 +3,11 @@ package terrains;
 import models.RawModel;
 import renderEngine.Loader;
 import textures.ModelTexture;
-
+/**
+ * Each terrain has a set size and is arranged in a grid like fashion
+ * @author Mohamed
+ *
+ */
 public class Terrain {
 	
 	private static final float SIZE = 800;

@@ -13,6 +13,7 @@ import models.RawModel;
 import shaders.TerrainShader;
 import terrains.Terrain;
 import textures.ModelTexture;
+import textures.TerrainTexturesPack;
 import toolbox.Maths;
 
 /**
@@ -32,6 +33,7 @@ public class TerrainRenderer {
 		this.shader = shader;
         shader.start();
         shader.loadProjectionMatrix(projectionMatrix);
+        shader.connectTextureUnits();
         shader.stop();
 	}
 	
@@ -58,11 +60,30 @@ public class TerrainRenderer {
 		GL20.glEnableVertexAttribArray(1); //Activate arribList, placed textureCoords in list 1
 		GL20.glEnableVertexAttribArray(2); //Activate arribList, placed normals in list 2
 		
-		ModelTexture texture = terrain.getTexture();
-		shader.loadShineVariable(texture.getShineDampner(), texture.getReflectivity());
-		
+		bindTextures(terrain);
+		shader.loadShineVariable(1, 0);
+	}
+	
+	/**
+	 * Since engine now uses multiple texture for the terrain, all the separate textures must
+	 * be bound to different openGL units. This included the r, g, b, background and blend map.
+	 */
+	private void bindTextures(Terrain terrain) {
+		TerrainTexturesPack texturePack = terrain.getTexturePack();
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);	//Activate texture to provided texture bank
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getID());
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texturePack.getBackgroundTexture().getTextureID());
+		
+		GL13.glActiveTexture(GL13.GL_TEXTURE1);	//Activate texture to provided texture bank
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texturePack.getrTexture().getTextureID());
+		
+		GL13.glActiveTexture(GL13.GL_TEXTURE2);	//Activate texture to provided texture bank
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texturePack.getgTexture().getTextureID());
+		
+		GL13.glActiveTexture(GL13.GL_TEXTURE3);	//Activate texture to provided texture bank
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, texturePack.getbTexture().getTextureID());
+		
+		GL13.glActiveTexture(GL13.GL_TEXTURE4);	//Activate texture to provided texture bank
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, terrain.getBlendMap().getTextureID());
 	}
 	
 	/**

@@ -3,6 +3,8 @@ package terrains;
 import models.RawModel;
 import renderEngine.Loader;
 import textures.ModelTexture;
+import textures.TerrainTexture;
+import textures.TerrainTexturesPack;
 /**
  * Each terrain has a set size and is arranged in a grid like fashion
  * @author Mohamed
@@ -16,17 +18,20 @@ public class Terrain {
 	private float x;
 	private float z;
 	private RawModel model;
-	private ModelTexture texture;
+	private TerrainTexturesPack texturePack;
+	private TerrainTexture blendMap;
 	
 	/**
 	 * The constructor generates a terrain in the grid positions provided
 	 * @param gridX
 	 * @param gridZ
 	 * @param loader
-	 * @param texture
+	 * @param texturePack
+	 * @param blendMap
 	 */
-	public Terrain(int gridX, int gridZ, Loader loader, ModelTexture texture) {
-		this.texture = texture;
+	public Terrain(int gridX, int gridZ, Loader loader, TerrainTexturesPack texturePack, TerrainTexture blendMap) {
+		this.texturePack = texturePack;
+		this.blendMap = blendMap;
 		this.x = gridX * SIZE;
 		this.z = gridZ * SIZE;
 		this.model = generateTerrain(loader);
@@ -87,9 +92,12 @@ public class Terrain {
 		return model;
 	}
 
-	public ModelTexture getTexture() {
-		return texture;
+	public TerrainTexture getBlendMap() {
+		return blendMap;
 	}
 
-	
+	public TerrainTexturesPack getTexturePack() {
+		return texturePack;
+	}
+
 }

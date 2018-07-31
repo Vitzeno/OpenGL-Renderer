@@ -19,6 +19,8 @@ import renderEngine.Loader;
 import renderEngine.MasterRenderer;
 import terrains.Terrain;
 import textures.ModelTexture;
+import textures.TerrainTexture;
+import textures.TerrainTexturesPack;
 
 public class MainGameLoop {
 
@@ -27,6 +29,24 @@ public class MainGameLoop {
 		DisplayManager.createDisplay();
 		
 		Loader loader = new Loader();
+		
+		Light light = new Light(new Vector3f(400, 1000, -400), new Vector3f(1, 1, 1));
+		Camera camera = new Camera();
+		
+		List<Terrain> terrains = new ArrayList<Terrain>();
+		
+		TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grass"));
+		TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
+		TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("grassFlowers"));
+		TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
+		
+		TerrainTexturesPack texturePack = new TerrainTexturesPack(backgroundTexture, rTexture, gTexture, bTexture);
+		TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
+		
+		//terrains.add(new Terrain(-1, -1, loader, new ModelTexture(loader.loadTexture("grass")))); 	//Top Left
+		terrains.add(new Terrain(0, -1, loader, texturePack, blendMap));	//Top Right
+		//terrains.add(new Terrain(0, 0, loader, new ModelTexture(loader.loadTexture("grass"))));		//Bottom Right
+		//terrains.add(new Terrain(-1, 0, loader, new ModelTexture(loader.loadTexture("grass"))));	//Bottom Left
 	
 		ModelData data = OBJFileLoader.loadOBJ("grassModel");
 		RawModel grassModel = loader.loadToVAO(data.getVertices(), data.getTextureCoords(), data.getNormals(), data.getIndices());
@@ -61,35 +81,23 @@ public class MainGameLoop {
 			//float x = rand.nextFloat() * 800;
 			//float z = rand.nextFloat() * -800;
 			
-			entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 1));
+			entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 1));
 		}
 		
 		for(int i = 0;i < 2000;i++) {
 			//float x = rand.nextFloat() * 800;
 			//float z = rand.nextFloat() * -800;
 			
-			entities.add(new Entity(tree, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 0.5f));
+			entities.add(new Entity(tree, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 0.5f));
 		}
 		
 		for(int i = 0;i < 10000;i++) {
 			//float x = rand.nextFloat() * 800;
 			//float z = rand.nextFloat() * -800;
 			
-			entities.add(new Entity(fern, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), rand.nextFloat(), rand.nextFloat(), 0, 0.5f));
+			entities.add(new Entity(fern, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 0.5f));
 		}
 		
-		
-		List<Terrain> terrains = new ArrayList<Terrain>();
-			
-		//terrains.add(new Terrain(-1, -1, loader, new ModelTexture(loader.loadTexture("grass")))); 	//Top Left
-		terrains.add(new Terrain(0, -1, loader, new ModelTexture(loader.loadTexture("grass"))));	//Top Right
-		//terrains.add(new Terrain(0, 0, loader, new ModelTexture(loader.loadTexture("grass"))));		//Bottom Right
-		//terrains.add(new Terrain(-1, 0, loader, new ModelTexture(loader.loadTexture("grass"))));	//Bottom Left
-		
-		
-		Light light = new Light(new Vector3f(400, 1000, -400), new Vector3f(1, 1, 1));
-		
-		Camera camera = new Camera();
 		
 		MasterRenderer renderer = new MasterRenderer();
 		

@@ -77,6 +77,15 @@ public abstract class ShaderProgram {
     }
 	
 	/**
+	 * Loads an int into shader code
+	 * @param loaction to load to
+	 * @param value to load
+	 */
+	protected void loadInt(int location, int value) {
+		GL20.glUniform1i(location, value);
+	}
+	
+	/**
 	 * Loads a float into shader code
 	 * @param loaction to loaded to
 	 * @param value to load into shader

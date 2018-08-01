@@ -88,7 +88,7 @@ public class MainGameLoop {
 			//float x = rand.nextFloat() * 800;
 			//float z = rand.nextFloat() * -800;
 			
-			entities.add(new Entity(tree, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 0.5f));
+			entities.add(new Entity(tree, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 2));
 		}
 		
 		for(int i = 0;i < 10000;i++) {

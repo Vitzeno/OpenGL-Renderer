@@ -9,7 +9,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  */
 public class Camera {
-	private Vector3f position = new Vector3f(400, 1, -400);
+	private Vector3f position = new Vector3f(400, 5, -400);
     private float pitch;
     private float yaw;
     private float roll;
@@ -22,6 +22,7 @@ public class Camera {
      * direction to simulate camera movement.
      */
     public void move(){
+    	/*
         if(Keyboard.isKeyDown(Keyboard.KEY_W)){
             position.z -= 0.1f;
         }
@@ -40,6 +41,7 @@ public class Camera {
         if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)){
             position.y -= 0.1f;
         }
+        */
     }
  
     public Vector3f getPosition() {

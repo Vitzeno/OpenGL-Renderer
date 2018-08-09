@@ -6,10 +6,12 @@ import java.util.Random;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
+import org.newdawn.slick.opengl.Texture;
 
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
+import entities.Player;
 import models.RawModel;
 import models.TexturedModel;
 import objConverter.ModelData;
@@ -27,11 +29,18 @@ public class MainGameLoop {
 	public static void main(String[] args) {
 		
 		DisplayManager.createDisplay();
+		ModelData data;
 		
 		Loader loader = new Loader();
 		
 		Light light = new Light(new Vector3f(400, 1000, -400), new Vector3f(1, 1, 1));
 		Camera camera = new Camera();
+		
+		data = OBJFileLoader.loadOBJ("person");
+		RawModel playerModel = loader.loadToVAO(data.getVertices(), data.getTextureCoords(), data.getNormals(), data.getIndices());
+		TexturedModel player = new TexturedModel(playerModel, new ModelTexture(loader.loadTexture("playerTexture")));
+		
+		Player playerEntity = new Player(player, new Vector3f(400, 1, -450), 0f, 0f, 0f, 0.5f);
 		
 		List<Terrain> terrains = new ArrayList<Terrain>();
 		
@@ -48,7 +57,7 @@ public class MainGameLoop {
 		//terrains.add(new Terrain(0, 0, loader, new ModelTexture(loader.loadTexture("grass"))));		//Bottom Right
 		//terrains.add(new Terrain(-1, 0, loader, new ModelTexture(loader.loadTexture("grass"))));	//Bottom Left
 	
-		ModelData data = OBJFileLoader.loadOBJ("grassModel");
+		data = OBJFileLoader.loadOBJ("grassModel");
 		RawModel grassModel = loader.loadToVAO(data.getVertices(), data.getTextureCoords(), data.getNormals(), data.getIndices());
 		TexturedModel grass = new TexturedModel(grassModel, new ModelTexture(loader.loadTexture("flower")));
 		ModelTexture grassTexture = grass.getTexture(); 
@@ -108,6 +117,9 @@ public class MainGameLoop {
 			//entity.increasePosition(0, 0, -0.1f);
 			
 			camera.move();
+			playerEntity.move();
+			
+			renderer.processEntity(playerEntity);
 			
 			for(Terrain terrain : terrains){
 				renderer.processTerrain(terrain);

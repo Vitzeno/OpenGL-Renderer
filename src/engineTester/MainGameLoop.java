@@ -3,11 +3,8 @@ package engineTester;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.opengl.Texture;
-
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
@@ -34,13 +31,15 @@ public class MainGameLoop {
 		Loader loader = new Loader();
 		
 		Light light = new Light(new Vector3f(400, 1000, -400), new Vector3f(1, 1, 1));
-		Camera camera = new Camera();
+		
 		
 		data = OBJFileLoader.loadOBJ("person");
 		RawModel playerModel = loader.loadToVAO(data.getVertices(), data.getTextureCoords(), data.getNormals(), data.getIndices());
 		TexturedModel player = new TexturedModel(playerModel, new ModelTexture(loader.loadTexture("playerTexture")));
 		
 		Player playerEntity = new Player(player, new Vector3f(400, 1, -450), 0f, 0f, 0f, 0.5f);
+		
+		Camera camera = new Camera(playerEntity);
 		
 		List<Terrain> terrains = new ArrayList<Terrain>();
 		

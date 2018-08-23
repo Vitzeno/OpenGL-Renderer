@@ -52,7 +52,7 @@ public class MainGameLoop {
 		TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
 		
 		//terrains.add(new Terrain(-1, -1, loader, new ModelTexture(loader.loadTexture("grass")))); 	//Top Left
-		terrains.add(new Terrain(0, -1, loader, texturePack, blendMap));	//Top Right
+		terrains.add(new Terrain(0, -1, loader, texturePack, blendMap, "heightmap"));	//Top Right
 		//terrains.add(new Terrain(0, 0, loader, new ModelTexture(loader.loadTexture("grass"))));		//Bottom Right
 		//terrains.add(new Terrain(-1, 0, loader, new ModelTexture(loader.loadTexture("grass"))));	//Bottom Left
 	

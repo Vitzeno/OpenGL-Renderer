@@ -47,6 +47,8 @@ public class Loader {
 	
 	/**
 	 * Loads in texture from given address using SlickUtils
+	 * This method also uses OpenGL mipmap generation to load in lower
+	 * resolution textures at further distances
 	 * @param fileName
 	 * @return
 	 */
@@ -55,6 +57,9 @@ public class Loader {
 		
 		try {
 			texture = TextureLoader.getTexture("PNG", new FileInputStream("res/" + fileName + ".png"));
+			
+			GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -15,6 +15,9 @@ public class Camera {
 	
 	private boolean holdToLook = false;
 	
+	private static final float CAMERA_X_SENSITIVITY = 0.1f;
+    private static final float CAMERA_Y_SENSITIVITY = 0.1f;
+	
 	private float distanceFromPlayer = 25;
 	private float angleAroundPlayer = 0;
 	//Angle above player is the same ass pitch angle
@@ -28,10 +31,7 @@ public class Camera {
     private static final float DEFAULT_ZOOM = 25;
     private static final float MINIMUM_ZOOM = 15;
     private static final float MAXIMUM_PITCH = 170;
-    
-    private static final float CAMERA_X_SENSITIVITY = 0.1f;
-    private static final float CAMERA_Y_SENSITIVITY = 0.1f;
-    
+  
     private Player player;
      
     public Camera(Player player){

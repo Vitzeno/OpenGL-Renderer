@@ -92,7 +92,7 @@ public class MainGameLoop {
 			entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 1));
 		}
 		
-		for(int i = 0;i < 2000;i++) {
+		for(int i = 0;i < 500;i++) {
 			//float x = rand.nextFloat() * 800;
 			//float z = rand.nextFloat() * -800;
 			

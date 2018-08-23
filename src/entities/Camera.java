@@ -29,6 +29,9 @@ public class Camera {
     private static final float MINIMUM_ZOOM = 15;
     private static final float MAXIMUM_PITCH = 170;
     
+    private static final float CAMERA_X_SENSITIVITY = 0.1f;
+    private static final float CAMERA_Y_SENSITIVITY = 0.1f;
+    
     private Player player;
      
     public Camera(Player player){
@@ -139,11 +142,11 @@ public class Camera {
     private void calculatePitch(boolean holdToLook) {
     	if(holdToLook) {
     		if(Mouse.isButtonDown(1)) {
-        		float pitchChange = Mouse.getDY() * 0.1f;
+        		float pitchChange = Mouse.getDY() * CAMERA_X_SENSITIVITY;
         		pitch -= pitchChange;
         	}
     	}else {
-    		float pitchChange = Mouse.getDY() * 0.1f;
+    		float pitchChange = Mouse.getDY() * CAMERA_X_SENSITIVITY;
     		pitch -= pitchChange;
     	}
     	
@@ -156,11 +159,11 @@ public class Camera {
     private void calculateAngleAround(boolean holdToLook) {
     	if(holdToLook) {
     		if(Mouse.isButtonDown(1)) {
-        		float angleChange = Mouse.getDX() * 0.3f;
+        		float angleChange = Mouse.getDX() * CAMERA_Y_SENSITIVITY;
         		angleAroundPlayer -= angleChange;
         	}
     	}else {
-    		float angleChange = Mouse.getDX() * 0.3f;
+    		float angleChange = Mouse.getDX() * CAMERA_Y_SENSITIVITY;
     		angleAroundPlayer -= angleChange;
     	}
     	

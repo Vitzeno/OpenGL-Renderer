@@ -87,17 +87,17 @@ public class MainGameLoop {
 		
 		
 		for(int i = 0;i < 10000;i++) {
-			float x = rand.nextFloat() * 800 - 400;
+			float x = rand.nextFloat() * 1600 - 400;
 			float z = rand.nextFloat() * -600;
 			
 			float y = terrains.get(0).getHeightOfTerrain(x, z);
 			
-			entities.add(new Entity(grass, new Vector3f(x, y,z), 0, rand.nextInt(), 0, 1));
+			entities.add(new Entity(grass, new Vector3f(x, y, z), 0, rand.nextInt(), 0, 1));
 			//entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 1));
 		}
 		
 		for(int i = 0;i < 500;i++) {
-			float x = rand.nextFloat() * 800 - 400;
+			float x = rand.nextFloat() * 1600 - 400;
 			float z = rand.nextFloat() * -600;
 			
 			float y = terrains.get(0).getHeightOfTerrain(x, z);
@@ -107,7 +107,7 @@ public class MainGameLoop {
 		}
 		
 		for(int i = 0;i < 10000;i++) {
-			float x = rand.nextFloat() * 800 - 400;
+			float x = rand.nextFloat() * 1600 - 400;
 			float z = rand.nextFloat() * -600;
 			
 			float y = terrains.get(0).getHeightOfTerrain(x, z);

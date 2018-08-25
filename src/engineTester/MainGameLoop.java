@@ -85,38 +85,58 @@ public class MainGameLoop {
 		List<Entity> entities = new ArrayList<Entity>();
 		Random rand = new Random();
 		
+		
 		for(int i = 0;i < 10000;i++) {
-			//float x = rand.nextFloat() * 800;
-			//float z = rand.nextFloat() * -800;
+			float x = rand.nextFloat() * 800 - 400;
+			float z = rand.nextFloat() * -600;
 			
-			entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 1));
+			float y = terrains.get(0).getHeightOfTerrain(x, z);
+			
+			entities.add(new Entity(grass, new Vector3f(x, y,z), 0, rand.nextInt(), 0, 1));
+			//entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 1));
 		}
 		
 		for(int i = 0;i < 500;i++) {
-			//float x = rand.nextFloat() * 800;
-			//float z = rand.nextFloat() * -800;
+			float x = rand.nextFloat() * 800 - 400;
+			float z = rand.nextFloat() * -600;
 			
-			entities.add(new Entity(tree, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 2));
+			float y = terrains.get(0).getHeightOfTerrain(x, z);
+			
+			entities.add(new Entity(tree, new Vector3f(x, y, z), 0, rand.nextInt(), 0, 2));
+			//entities.add(new Entity(tree, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 2));
 		}
 		
 		for(int i = 0;i < 10000;i++) {
-			//float x = rand.nextFloat() * 800;
-			//float z = rand.nextFloat() * -800;
+			float x = rand.nextFloat() * 800 - 400;
+			float z = rand.nextFloat() * -600;
 			
-			entities.add(new Entity(fern, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 0.5f));
+			float y = terrains.get(0).getHeightOfTerrain(x, z);
+			
+			entities.add(new Entity(fern, new Vector3f(x, y, z), 0, rand.nextInt(), 0, 0.5f));
+			//entities.add(new Entity(fern, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 0.5f));
 		}
 		
 		
 		MasterRenderer renderer = new MasterRenderer();
 		
 		while(!Display.isCloseRequested()) {
-			//Game logic
-			//entity.setRotY(180);
-			//entity.increaseRotation(0, 1, 0);
-			//entity.increasePosition(0, 0, -0.1f);
-			
+			//Game logic	
 			camera.move();
-			playerEntity.move();
+			
+			/**
+			 * When multiple terrains exist, this will not sufficient,
+			 * will need to test which terrain player is on then pass that
+			 * to move method e.g:
+			 * 
+			 * if(player.getPosition().x > 800 || player.getPosition().z > 800){
+    				player.move(terrain2);
+				}else{
+ 					player.move(terrain);
+				}
+				
+			 */
+
+			playerEntity.move(terrains.get(0));
 			
 			renderer.processEntity(playerEntity);
 			

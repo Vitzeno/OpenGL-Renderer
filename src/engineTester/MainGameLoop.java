@@ -83,7 +83,7 @@ public class MainGameLoop {
 		
 		
 		List<Entity> entities = new ArrayList<Entity>();
-		Random rand = new Random();
+		Random rand = new Random(114);
 		
 		
 		for(int i = 0;i < 10000;i++) {
@@ -92,7 +92,7 @@ public class MainGameLoop {
 			
 			float y = terrains.get(0).getHeightOfTerrain(x, z);
 			
-			entities.add(new Entity(grass, new Vector3f(x, y, z), 0, rand.nextInt(), 0, 1));
+			entities.add(new Entity(grass, new Vector3f(x, y, z), 0, rand.nextInt() * 360, 0, 1));
 			//entities.add(new Entity(grass, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 1));
 		}
 		
@@ -102,7 +102,7 @@ public class MainGameLoop {
 			
 			float y = terrains.get(0).getHeightOfTerrain(x, z);
 			
-			entities.add(new Entity(tree, new Vector3f(x, y, z), 0, rand.nextInt(), 0, 2));
+			entities.add(new Entity(tree, new Vector3f(x, y, z), 0, rand.nextInt() * 360, 0, 2));
 			//entities.add(new Entity(tree, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 2));
 		}
 		
@@ -112,7 +112,7 @@ public class MainGameLoop {
 			
 			float y = terrains.get(0).getHeightOfTerrain(x, z);
 			
-			entities.add(new Entity(fern, new Vector3f(x, y, z), 0, rand.nextInt(), 0, 0.5f));
+			entities.add(new Entity(fern, new Vector3f(x, y, z), 0, rand.nextInt() * 360, 0, 0.5f));
 			//entities.add(new Entity(fern, new Vector3f(rand.nextFloat() * 1600, 0, rand.nextFloat() * -800), 0, rand.nextInt(), 0, 0.5f));
 		}
 		
@@ -121,7 +121,7 @@ public class MainGameLoop {
 		
 		while(!Display.isCloseRequested()) {
 			//Game logic	
-			camera.move();
+			camera.move(terrains.get(0));
 			
 			/**
 			 * When multiple terrains exist, this will not sufficient,

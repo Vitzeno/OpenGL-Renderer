@@ -63,7 +63,9 @@ public class Terrain {
 		float gridSquareSize = SIZE / ((float)heights.length - 1);
 		int gridX = (int) Math.floor(terrainX / gridSquareSize);
 		int gridZ = (int) Math.floor(terrainZ / gridSquareSize);
-		System.out.println("Grid X: " + gridX + " GridZ: " + gridZ);
+		
+		//System.out.println("Grid X: " + gridX + " GridZ: " + gridZ);
+		
 		if(gridX >= heights.length - 1 || gridZ >= heights.length - 1 || gridX < 0 || gridZ < 0) {
 			return 0;
 		}

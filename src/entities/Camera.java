@@ -5,6 +5,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 
 import renderEngine.DisplayManager;
+import terrains.Terrain;
 
 /**
  * This class handles the camera view data
@@ -43,14 +44,14 @@ public class Camera {
      * In reality the world is translated in the exact opposite
      * direction to simulate camera movement.
      */
-    public void move(){
+    public void move(Terrain terrain){
     	calculateZoom();
     	calculatePitch(holdToLook);
     	calculateAngleAround(holdToLook);
     	
     	float horizontalDistance = calculateHorizontalDistance();
     	float verticalDistance = calculateVerticalDistance();
-    	calculateCameraPosition(horizontalDistance, verticalDistance);
+    	calculateCameraPosition(horizontalDistance, verticalDistance, terrain);
     	this.yaw = 180 - (player.getRotY() + angleAroundPlayer);
     }
  
@@ -75,7 +76,7 @@ public class Camera {
      * @param horizontalDistance
      * @param verticalDistance
      */
-    private void calculateCameraPosition(float horizontalDistance, float verticalDistance) {
+    private void calculateCameraPosition(float horizontalDistance, float verticalDistance, Terrain terrain) {
     	float theta = player.getRotY() + angleAroundPlayer;
     	float offsetX = (float) (horizontalDistance * Math.sin(Math.toRadians(theta)));
     	float offsetZ = (float) (horizontalDistance * Math.cos(Math.toRadians(theta)));
@@ -84,7 +85,7 @@ public class Camera {
     	position.y = player.getPosition().y + verticalDistance;
     	position.z = player.getPosition().z - offsetZ;
     	
-    	checkClamping();
+    	checkClamping(terrain);
     	if(!holdToLook)
     		centerCursor();
     }
@@ -102,9 +103,10 @@ public class Camera {
     /**
      * Limits certain variables like y pos, pitch and zoom levels
      */
-    private void checkClamping() {
-    	if(position.y < TERRAIN_HEIGHT)
-    		position.y = TERRAIN_HEIGHT;
+    private void checkClamping(Terrain terrain) {
+    	float terrainHeight = terrain.getHeightOfTerrain(position.x, position.z) + 1;
+    	if(position.y < terrainHeight)
+    		position.y = terrainHeight;
     	if(distanceFromPlayer < MINIMUM_ZOOM)
     		distanceFromPlayer = MINIMUM_ZOOM;
     	if(pitch > MAXIMUM_PITCH)

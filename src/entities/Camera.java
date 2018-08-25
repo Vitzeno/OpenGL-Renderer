@@ -28,7 +28,6 @@ public class Camera {
     private float yaw;
     private float roll;
     
-    private static final float TERRAIN_HEIGHT = 1;
     private static final float DEFAULT_ZOOM = 25;
     private static final float MINIMUM_ZOOM = 15;
     private static final float MAXIMUM_PITCH = 170;

@@ -146,7 +146,7 @@ public class MainGameLoop {
 			
 			for(Entity entity : entities) {
 				renderer.processEntity(entity);
-				//entity.increaseRotation(0, 1, 0);
+				//entity.increaseRotation(0, 0, 1);
 			}
 
 			renderer.renderer(light, camera);
